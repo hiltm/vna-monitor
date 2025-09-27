@@ -1,5 +1,6 @@
 import pynanovna
 import datetime
+import time
 
 vna = pynanovna.VNA()
 
@@ -8,15 +9,16 @@ calibrationFile = '/home/chiptamper/chiptamper/Calibration_1758496936.2956493.ca
 
 vna.load_calibration(calibrationFile)
 print(vna.info())
-#vna.stream_to_csv(filename, nr_sweeps=100, skip_start=5, sweepdivider='sweepnumber: ')
 
-vna.set_sweep(120000, 140000000, 101)
-#s11, s21, frequencies = vna.sweep()
-#print(s11)
-#print(s21)
-#print(frequencies)
+for data in vna.stream():
+    frequencies = data[0]
+    s21 = data[1]
+    s22 = data[2]
 
-# continuous sweep
-for s11, s21, frequencies in vna.stream():
-    print(s11, s21, frequencies)
-#    # Do what I want with each sweep here
+#frequencies, s21, s22 = vna.stream()
+
+    print(f"{'Index':>5} | {'Frequency (Hz)':>15} | {'S21':>12} | {'S22':>12}")
+    print("-" * 55)
+
+    for i, (f, val21, val22) in enumerate(zip(frequencies, s21, s22)):
+        print(f"{i:5d} | {f:15.2f} | {val21:12.6f} | {val22:12.6f}")
