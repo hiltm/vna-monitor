@@ -1,6 +1,6 @@
 import pynanovna
 import datetime
-import time
+import skrf as rf
 
 vna = pynanovna.VNA()
 
