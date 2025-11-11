@@ -4,7 +4,9 @@ from datetime import datetime
 import skrf as rf
 #from skrf.vi.vna.nanovna import NanoVNAv2
 import matplotlib.pyplot as plt
+import subprocess
 import time
+import os
 
 vna = pynanovna.VNA()
 #vna = NanoVNAv2("ASRL/dev/ttyACM0::INSTR")
@@ -80,8 +82,16 @@ def capture_data(filename, start_freq, stop_freq, points):
 try:
     while(True):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp_year = datetime.now().strftime("%Y%m%d")
+        filepath = f"/home/chiptamper/chiptamper/data/{timestamp_year}"
+
+        if not os.path.exists(filepath):
+           #os.makedirs(filepath)
+           subprocess.run(["sudo", "mkdir", "-p", filepath])
+           subprocess.run(["sudo", "chown", "chiptamper:chiptamper", filepath])
+
         print(timestamp)
-        filename = f"/home/chiptamper/chiptamper/testdata/measurement_{timestamp}_"
+        filename = filepath + f"/measurement_{timestamp}_"
 
         print("Taking measurement...")
         capture_data(filename=filename, start_freq=1e6, stop_freq=1.5e6, points=10)#101)
