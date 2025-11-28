@@ -105,10 +105,10 @@ try:
 
         ax.clear()
 #        smith_chart = rf.
-        ntwk = rf.Network(get_global_filename())
-        ntwk.plot_s_smith(ax=ax)
-        ax.set_title(f"Smith Chart @ {get_global_filename()}")
-        plt.draw()
+   #     ntwk = rf.Network(get_global_filename())
+   #     ntwk.plot_s_smith(ax=ax)
+   #     ax.set_title(f"Smith Chart @ {get_global_filename()}")
+   #     plt.draw()
         plt.pause(1)
 
         time.sleep(1)
