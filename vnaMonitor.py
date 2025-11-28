@@ -109,6 +109,20 @@ try:
    #     ntwk.plot_s_smith(ax=ax)
    #     ax.set_title(f"Smith Chart @ {get_global_filename()}")
    #     plt.draw()
+
+        magnitude_db_s21 = 20 * np.log10(np.abs(s21))
+        magnitude_db_s11 = 20 * np.log10(np.abs(s11))
+
+        plt.plot(freqs, magnitude_db_s21)
+        plt.plot(freqs, magnitude_db_s11)
+        plt.xlabel("Frequency (Hz)")
+        plt.ylabel("Magnitude (dB)")
+        plt.title("Frequency Response")
+        plt.xlim(0e9,4e9)
+        plt.ylim(-60,0)
+        plt.legend(['S21','S11'])
+        plt.grid(True)
+        plt.show()
         plt.pause(1)
 
         time.sleep(1)
